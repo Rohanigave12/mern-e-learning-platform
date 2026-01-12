@@ -1,2 +1,22 @@
-node_modules
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# Environment files
 .env
+
+# macOS junk
+.DS_Store
+
+# Editor folders
+.vscode/
+
+# Build folders
+dist/
+build/
+
+# Uploads
+server/uploads/
+
+# Backup files
+*.save
