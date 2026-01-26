@@ -9,7 +9,14 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+averageRating: {
+  type: Number,
+  default: 0,
+},
+numReviews: {
+  type: Number,
+  default: 0,
+},
   image: {
     type: String,
     required: true,
