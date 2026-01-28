@@ -1,3 +1,18 @@
+/**
+ * Review Model
+ * ------------
+ * This model stores user reviews and ratings for courses.
+ *
+ * Fields:
+ * - user: reference to User
+ * - course: reference to Course
+ * - rating: number (1–5)
+ * - comment: optional text review
+ *
+ * Related APIs:
+ * - POST /api/reviews/:courseId
+ * - GET /api/reviews/:courseId
+ */
 import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
