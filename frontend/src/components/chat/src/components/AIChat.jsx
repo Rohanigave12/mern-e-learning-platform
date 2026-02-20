@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { server } from "../../main.jsx";
 import "./AIChat.css";
 
 const AIChat = () => {
@@ -22,7 +23,7 @@ const AIChat = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("http://localhost:5001/api/ai/chat", {
+      const res = await axios.post(`${server}/api/ai/chat`, {
         message: input
       });
 
