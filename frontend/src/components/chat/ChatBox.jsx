@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { server } from "../../main.jsx";
+import { server } from "../../config";
 import "./chat.css";
 
 const ChatBox = () => {
@@ -10,7 +10,7 @@ const ChatBox = () => {
   const sendMessage = async () => {
     if (!message.trim()) return;
 
-    setChatHistory([...chatHistory, { sender: "user", text: message }]);
+    setChatHistory((prev) => [...prev, { sender: "user", text: message }]);
     setMessage("");
 
     try {
@@ -19,10 +19,11 @@ const ChatBox = () => {
       });
 
       setChatHistory((prev) => [...prev, { sender: "ai", text: data.reply }]);
-    } catch (err) {
+    } catch (error) {
+      console.log(error);
       setChatHistory((prev) => [
         ...prev,
-        { sender: "ai", text: "Error: Could not get response" },
+        { sender: "ai", text: "AI error 😢" },
       ]);
     }
   };
@@ -34,6 +35,7 @@ const ChatBox = () => {
   return (
     <div className="chat-container">
       <h3>AI Chatbot</h3>
+
       <div className="chat-box">
         {chatHistory.map((chat, idx) => (
           <div
@@ -44,6 +46,7 @@ const ChatBox = () => {
           </div>
         ))}
       </div>
+
       <div className="chat-input-container">
         <input
           type="text"

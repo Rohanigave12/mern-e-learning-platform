@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { server } from "../../main.jsx";
+import { server } from "/src/main.jsx";
 import "./AIChat.css";
 
 const AIChat = () => {
