@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
-import "./chat.css"; // optional, for styling
+import { server } from "../../main.jsx";
+import "./chat.css";
 
 const ChatBox = () => {
   const [message, setMessage] = useState("");
@@ -9,19 +10,16 @@ const ChatBox = () => {
   const sendMessage = async () => {
     if (!message.trim()) return;
 
-    // Add user message to chat history
     setChatHistory([...chatHistory, { sender: "user", text: message }]);
     setMessage("");
 
     try {
-      const { data } = await axios.post("http://localhost:5001/api/chat", {
+      const { data } = await axios.post(`${server}/api/chat`, {
         message,
       });
 
-      // Add AI reply to chat history
       setChatHistory((prev) => [...prev, { sender: "ai", text: data.reply }]);
     } catch (err) {
-      console.error(err);
       setChatHistory((prev) => [
         ...prev,
         { sender: "ai", text: "Error: Could not get response" },
