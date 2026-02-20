@@ -15,7 +15,7 @@ A full-stack e-learning platform built using the MERN stack where users can regi
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Tech Stack .
 Frontend:
 - React.js
 - Axios
