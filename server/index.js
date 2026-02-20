@@ -5,6 +5,7 @@ import { connectDb } from "./database/db.js";
 import Razorpay from "razorpay";
 import cors from "cors";
 import chatRoutes from "./routes/chat.js";
+import aiRoutes from "./routes/aiRoutes.js";
  
 dotenv.config();
 
@@ -34,6 +35,8 @@ app.get("/", (req, res) => {
 // ✅ Static file route
 app.use("/uploads", express.static("uploads"));
 
+
+
 // ✅ Import routes
 import userRoutes from "./routes/user.js";
 import courseRoutes from "./routes/course.js";
@@ -44,6 +47,7 @@ app.use("/api", userRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", courseRoutes);
 app.use("/api", chatRoutes);
+app.use("/api/ai", aiRoutes);
 
 // ✅ Start server
 app.listen(port, () => {
