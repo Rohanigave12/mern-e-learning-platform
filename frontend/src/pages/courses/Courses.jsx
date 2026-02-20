@@ -6,19 +6,23 @@ import CourseCard from "../../components/coursecard/CourseCard";
 const Courses = () => {
   const { courses } = CourseData();
 
-  console.log(courses);
   return (
-    <div className="courses">
-      <h2>Available Courses</h2>
+    <section className="courses-modern">
+      <div className="courses-wrapper">
+        <h2>Explore Our Courses</h2>
+        <p className="subtitle">
+          Learn from industry experts and build real-world skills
+        </p>
 
-      <div className="course-container">
-        {courses && courses.length > 0 ? (
-          courses.map((e) => <CourseCard key={e._id} course={e} />)
-        ) : (
-          <p>No Courses Yet!</p>
-        )}
+        <div className="course-grid">
+          {courses && courses.length > 0 ? (
+            courses.map((e) => <CourseCard key={e._id} course={e} />)
+          ) : (
+            <div className="empty-state">No Courses Available Yet</div>
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

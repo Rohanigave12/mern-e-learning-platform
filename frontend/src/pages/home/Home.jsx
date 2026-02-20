@@ -5,19 +5,45 @@ import Testimonials from "../../components/testimonials/Testimonials";
 
 const Home = () => {
   const navigate = useNavigate();
+
   return (
-    <div>
-      <div className="home">
-        <div className="home-content">
-          <h1>Welcome to our E-learning Platform</h1>
-          <p>Learn, Grow, Excel</p>
-          <button onClick={() => navigate("/courses")} className="common-btn">
-            Get Started
-          </button>
+    <>
+      <section className="home-modern">
+        <div className="home-text">
+          <h1>
+            Learn skills that <span>actually matter</span>
+          </h1>
+
+          <p>
+            Upgrade your career with practical courses taught by industry
+            experts. Learn faster, build real projects, and get job-ready.
+          </p>
+
+          <div className="home-buttons">
+            <button onClick={() => navigate("/courses")} className="main-btn">
+              Browse Courses
+            </button>
+            <button onClick={() => navigate("/register")} className="outline-btn">
+              Get Started Free
+            </button>
+          </div>
         </div>
-      </div>
+
+        <div className="home-cards">
+          <div className="info-card">
+            📚 Expert Courses
+          </div>
+          <div className="info-card">
+            🧠 Practical Learning
+          </div>
+          <div className="info-card">
+            🚀 Career Growth
+          </div>
+        </div>
+      </section>
+
       <Testimonials />
-    </div>
+    </>
   );
 };
 

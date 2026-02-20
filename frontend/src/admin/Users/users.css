@@ -1,8 +1,113 @@
-.users {
-  width: 350px;
-  overflow-x: auto;
-  white-space: nowrap;
-  margin: 20px auto;
+.users-pro {
+  padding: 50px;
+  background: #f4f7fb;
   min-height: 80vh;
-  border: solid gray 1px;
+}
+
+.users-pro h1 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 35px;
+  color: #1f2937;
+}
+
+/* GRID */
+
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+/* USER CARD */
+
+.user-card {
+  background: white;
+  padding: 26px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: 0.35s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+/* Avatar */
+
+.avatar {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg,#2563eb,#3b82f6);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+/* Info */
+
+.user-info h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+  color: #111827;
+}
+
+.user-info p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+/* Role badge */
+
+.badge {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.badge.admin {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.badge.user {
+  background: #dcfce7;
+  color: #059669;
+}
+
+/* Button */
+
+.user-card button {
+  margin-top: 18px;
+  background: linear-gradient(135deg,#2563eb,#3b82f6);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.user-card button:hover {
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .users-pro {
+    padding: 25px;
+  }
 }

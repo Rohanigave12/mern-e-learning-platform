@@ -34,7 +34,6 @@ const AdminCourses = ({ user }) => {
   const changeImageHandler = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-
     reader.readAsDataURL(file);
 
     reader.onloadend = () => {
@@ -50,7 +49,6 @@ const AdminCourses = ({ user }) => {
     setBtnLoading(true);
 
     const myForm = new FormData();
-
     myForm.append("title", title);
     myForm.append("description", description);
     myForm.append("category", category);
@@ -62,14 +60,14 @@ const AdminCourses = ({ user }) => {
     try {
       const { data } = await axios.post(`${server}/api/course/new`, myForm, {
         headers: {
-          'token': localStorage.getItem('token'),
+          token: localStorage.getItem("token"),
         },
       });
 
       toast.success(data.message);
       setBtnLoading(false);
       await fetchCourses();
-      setImage("");
+
       setTitle("");
       setDescription("");
       setDuration("");
@@ -79,95 +77,90 @@ const AdminCourses = ({ user }) => {
       setCategory("");
     } catch (error) {
       toast.error(error.response.data.message);
+      setBtnLoading(false);
     }
   };
 
   return (
     <Layout>
-      <div className="admin-courses">
-        <div className="left">
+      <div className="admin-courses-modern">
+        {/* LEFT SIDE */}
+        <div className="courses-panel">
           <h1>All Courses</h1>
-          <div className="dashboard-content">
+
+          <div className="course-grid">
             {courses && courses.length > 0 ? (
-              courses.map((e) => {
-                return <CourseCard key={e._id} course={e} />;
-              })
+              courses.map((e) => <CourseCard key={e._id} course={e} />)
             ) : (
               <p>No Courses Yet</p>
             )}
           </div>
         </div>
 
-        <div className="right">
-          <div className="add-course">
-            <div className="course-form">
-              <h2>Add Course</h2>
-              <form onSubmit={submitHandler}>
-                <label htmlFor="text">Title</label>
-                <input
-                  type="text"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
+        {/* RIGHT SIDE */}
+        <div className="form-panel">
+          <h2>Add New Course</h2>
 
-                <label htmlFor="text">Description</label>
-                <input
-                  type="text"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                />
+          <form onSubmit={submitHandler}>
+            <input
+              type="text"
+              placeholder="Course Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
 
-                <label htmlFor="text">Price</label>
-                <input
-                  type="number"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  required
-                />
+            <input
+              type="text"
+              placeholder="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+            />
 
-                <label htmlFor="text">createdBy</label>
-                <input
-                  type="text"
-                  value={createdBy}
-                  onChange={(e) => setCreatedBy(e.target.value)}
-                  required
-                />
+            <input
+              type="number"
+              placeholder="Price"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+              required
+            />
 
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
-                >
-                  <option value={""}>Select Category</option>
-                  {categories.map((e) => (
-                    <option value={e} key={e}>
-                      {e}
-                    </option>
-                  ))}
-                </select>
+            <input
+              type="text"
+              placeholder="Created By"
+              value={createdBy}
+              onChange={(e) => setCreatedBy(e.target.value)}
+              required
+            />
 
-                <label htmlFor="text">Duration</label>
-                <input
-                  type="number"
-                  value={duration}
-                  onChange={(e) => setDuration(e.target.value)}
-                  required
-                />
+            <select value={category} onChange={(e) => setCategory(e.target.value)}>
+              <option value="">Select Category</option>
+              {categories.map((e) => (
+                <option key={e} value={e}>
+                  {e}
+                </option>
+              ))}
+            </select>
 
-                <input type="file" required onChange={changeImageHandler} />
-                {imagePrev && <img src={imagePrev} alt="" width={300} />}
+            <input
+              type="number"
+              placeholder="Duration (hours)"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              required
+            />
 
-                <button
-                  type="submit"
-                  disabled={btnLoading}
-                  className="common-btn"
-                >
-                  {btnLoading ? "Please Wait..." : "Add"}
-                </button>
-              </form>
-            </div>
-          </div>
+            <input type="file" required onChange={changeImageHandler} />
+
+            {imagePrev && (
+              <img className="preview-img" src={imagePrev} alt="preview" />
+            )}
+
+            <button disabled={btnLoading}>
+              {btnLoading ? "Uploading..." : "Add Course"}
+            </button>
+          </form>
         </div>
       </div>
     </Layout>

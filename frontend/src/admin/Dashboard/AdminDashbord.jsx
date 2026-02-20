@@ -10,7 +10,7 @@ const AdminDashbord = ({ user }) => {
 
   if (user && user.role !== "admin") return navigate("/");
 
-  const [stats, setStats] = useState([]);
+  const [stats, setStats] = useState({});
 
   async function fetchStats() {
     try {
@@ -29,25 +29,30 @@ const AdminDashbord = ({ user }) => {
   useEffect(() => {
     fetchStats();
   }, []);
+
   return (
-    <div>
-      <Layout>
-        <div className="main-content">
-          <div className="box">
+    <Layout>
+      <div className="admin-container">
+        <h1 className="admin-title">Dashboard Overview</h1>
+
+        <div className="card-row">
+          <div className="modern-card blue">
             <p>Total Courses</p>
-            <p>{stats.totalCoures}</p>
+            <h2>{stats.totalCoures}</h2>
           </div>
-          <div className="box">
+
+          <div className="modern-card purple">
             <p>Total Lectures</p>
-            <p>{stats.totalLectures}</p>
+            <h2>{stats.totalLectures}</h2>
           </div>
-          <div className="box">
+
+          <div className="modern-card green">
             <p>Total Users</p>
-            <p>{stats.totalUsers}</p>
+            <h2>{stats.totalUsers}</h2>
           </div>
         </div>
-      </Layout>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

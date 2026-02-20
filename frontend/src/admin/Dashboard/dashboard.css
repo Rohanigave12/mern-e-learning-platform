@@ -1,20 +1,81 @@
-.main-content {
+.admin-container {
+  padding: 50px;
+  background: #f4f7fb;
+  min-height: 80vh;
+  width: 100%;
+}
+
+.admin-title {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 35px;
+  color: #1f2937;
+}
+
+/* REAL dashboard layout */
+.card-row {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  gap: 30px;
   flex-wrap: wrap;
+  justify-content: space-between;
+}
 
-  .box {
-    margin-left: 20px;
-    background-color: #8a4baf;
-    padding: 5px;
-    border-radius: 5px;
-    text-align: center;
-    margin-top: 5px;
-    color: white;
+.modern-card {
+  flex: 1;
+  min-width: 260px;
+  border-radius: 20px;
+  padding: 40px 30px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  transition: transform 0.35s ease;
+}
 
-    &:hover {
-      background-color: #432456;
-    }
+.modern-card:hover {
+  transform: translateY(-12px);
+}
+
+.modern-card::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -40%;
+  width: 220px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 50%;
+}
+
+.modern-card p {
+  font-size: 18px;
+  opacity: 0.9;
+}
+
+.modern-card h2 {
+  font-size: 48px;
+  margin-top: 12px;
+  font-weight: 700;
+}
+
+/* Premium gradients */
+
+.blue {
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+}
+
+.purple {
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+}
+
+.green {
+  background: linear-gradient(135deg, #059669, #10b981);
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+  .card-row {
+    flex-direction: column;
   }
 }
