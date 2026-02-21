@@ -1,6 +1,6 @@
 MERN E-Learning Platform 🎓
 
-A full-stack E-Learning Platform built using the MERN stack that allows users to register, browse courses, enroll, watch lectures, and make secure payments. The platform also includes instructor/admin features for managing courses and content.
+full-stack E-Learning Platform built using the MERN stack that allows users to register, browse courses, enroll, watch lectures, and make secure payments. The platform also includes instructor/admin features for managing courses and content.
 
 ⸻
 
