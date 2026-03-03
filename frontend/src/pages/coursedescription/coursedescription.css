@@ -2,6 +2,17 @@
   padding: 80px 0;
   text-align: center;
   min-height: 55vh;
+  transition: 0.3s ease;
+
+  /* LIGHT MODE */
+  body.light & {
+    background: #f9fafb;
+  }
+
+  /* DARK MODE */
+  body.dark & {
+    background: #0b0f19;
+  }
 
   .course-header {
     display: flex;
@@ -15,7 +26,7 @@
       width: 200px;
       height: 150px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .course-info {
@@ -23,22 +34,45 @@
 
       h2 {
         font-size: 24px;
-        color: #333;
+        margin-bottom: 8px;
+
+        body.light & {
+          color: #111827;
+        }
+
+        body.dark & {
+          color: #f9fafb;
+        }
       }
 
       p {
         font-size: 14px;
-        color: #666;
         margin: 5px 0;
+
+        body.light & {
+          color: #6b7280;
+        }
+
+        body.dark & {
+          color: #9ca3af;
+        }
       }
     }
 
-    p {
+    /* Description paragraph */
+    > p {
       font-size: 16px;
-      color: #333;
-      text-align: center;
       max-width: 800px;
       margin: 0 auto;
+      line-height: 1.6;
+
+      body.light & {
+        color: #374151;
+      }
+
+      body.dark & {
+        color: #9ca3af;
+      }
     }
   }
 }

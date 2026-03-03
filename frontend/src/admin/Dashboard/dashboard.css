@@ -1,18 +1,39 @@
 .admin-container {
   padding: 50px;
-  background: #f4f7fb;
   min-height: 80vh;
   width: 100%;
+  transition: 0.3s ease;
+
+  /* LIGHT MODE */
+  body.light & {
+    background: #f4f7fb;
+  }
+
+  /* DARK MODE */
+  body.dark & {
+    background: #0b0f19;
+  }
 }
 
 .admin-title {
   font-size: 34px;
   font-weight: 700;
   margin-bottom: 35px;
-  color: #1f2937;
+  transition: 0.3s ease;
+
+  /* LIGHT */
+  body.light & {
+    color: #1f2937;
+  }
+
+  /* DARK */
+  body.dark & {
+    color: #f9fafb;
+  }
 }
 
-/* REAL dashboard layout */
+/* ================= DASHBOARD CARDS ================= */
+
 .card-row {
   display: flex;
   gap: 30px;
@@ -36,6 +57,7 @@
   transform: translateY(-12px);
 }
 
+/* Decorative glow circle */
 .modern-card::after {
   content: "";
   position: absolute;
@@ -47,6 +69,7 @@
   border-radius: 50%;
 }
 
+/* Text inside cards */
 .modern-card p {
   font-size: 18px;
   opacity: 0.9;
@@ -58,7 +81,7 @@
   font-weight: 700;
 }
 
-/* Premium gradients */
+/* ================= PREMIUM GRADIENTS ================= */
 
 .blue {
   background: linear-gradient(135deg, #2563eb, #3b82f6);
@@ -72,7 +95,7 @@
   background: linear-gradient(135deg, #059669, #10b981);
 }
 
-/* Mobile */
+/* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
   .card-row {

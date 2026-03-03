@@ -31,7 +31,7 @@ export const register = TryCatch(async (req, res) => {
     },
     process.env.Activation_Secret,
     {
-      expiresIn: "15d",
+      expiresIn: "5m",
     }
   );
 
@@ -50,8 +50,11 @@ export const register = TryCatch(async (req, res) => {
 
 export const verifyUser = TryCatch(async (req, res) => {
   const { otp, activationToken } = req.body;
-  console.log(req.body);
-  const verify = jwt.verify(activationToken, process.env.Activation_Secret);
+
+  const verify = jwt.verify(
+    activationToken,
+    process.env.Activation_Secret
+  );
 
   if (!verify)
     return res.status(400).json({
@@ -84,16 +87,20 @@ export const loginUser = TryCatch(async (req, res) => {
       message: "No User with this email",
     });
 
-  const mathPassword = await bcrypt.compare(password, user.password);
+  const matchPassword = await bcrypt.compare(password, user.password);
 
-  if (!mathPassword)
+  if (!matchPassword)
     return res.status(400).json({
       message: "wrong Password",
     });
 
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: "15d",
-  });
+  const token = jwt.sign(
+    { _id: user._id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "5m",
+    }
+  );
 
   res.json({
     message: `Welcome back ${user.name}`,
@@ -104,7 +111,6 @@ export const loginUser = TryCatch(async (req, res) => {
 
 export const myProfile = TryCatch(async (req, res) => {
   const user = await User.findById(req.user._id);
-
   res.json({ user });
 });
 
@@ -118,7 +124,11 @@ export const forgotPassword = TryCatch(async (req, res) => {
       message: "No User with this email",
     });
 
-  const token = jwt.sign({ email }, process.env.Forgot_Secret);
+  const token = jwt.sign(
+    { email },
+    process.env.Forgot_Secret,
+    { expiresIn: "5m" }
+  );
 
   const data = { email, token };
 
@@ -134,7 +144,10 @@ export const forgotPassword = TryCatch(async (req, res) => {
 });
 
 export const resetPassword = TryCatch(async (req, res) => {
-  const decodedData = jwt.verify(req.query.token, process.env.Forgot_Secret);
+  const decodedData = jwt.verify(
+    req.query.token,
+    process.env.Forgot_Secret
+  );
 
   const user = await User.findOne({ email: decodedData.email });
 
@@ -157,7 +170,6 @@ export const resetPassword = TryCatch(async (req, res) => {
   const password = await bcrypt.hash(req.body.password, 10);
 
   user.password = password;
-
   user.resetPasswordExpire = null;
 
   await user.save();

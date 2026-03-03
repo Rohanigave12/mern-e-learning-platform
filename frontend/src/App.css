@@ -1,27 +1,22 @@
+/* GLOBAL TRANSITION */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
   font-family: Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.common-btn {
-  background-color: #8a4baf;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
+/* ================= LIGHT MODE ================= */
 
-  &:hover {
-    background-color: #5f357e;
-  }
+body.light {
+  background-color: #f9fafb;
+  color: #111827;
+}
 
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
+/* ================= DARK MODE (Modern Full Dark) ================= */
+
+body.dark {
+  background-color: #0b0f19;
+  color: #f9fafb;
 }

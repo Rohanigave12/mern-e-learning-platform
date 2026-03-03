@@ -1,11 +1,22 @@
 .testimonials {
   padding: 80px 0;
   text-align: center;
+  transition: 0.3s ease;
+
+  /* ================= LIGHT MODE ================= */
+  body.light & {
+    background: #f9fafb;
+  }
+
+  /* ================= DARK MODE ================= */
+  body.dark & {
+    background: #0b0f19;
+  }
 
   h2 {
     font-size: 32px;
-    color: #8a4baf;
     margin-bottom: 30px;
+    color: #3b82f6;
   }
 
   .testmonials-cards {
@@ -15,19 +26,30 @@
     gap: 30px;
 
     .testimonial-card {
-      background-color: white;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-      padding: 20px;
-      border-radius: 10px;
+      padding: 25px;
+      border-radius: 16px;
       width: 300px;
       text-align: left;
       display: flex;
       flex-direction: column;
       align-items: center;
+      transition: 0.3s ease;
 
       @media (max-width: 768px) {
         width: 80%;
         text-align: center;
+      }
+
+      /* LIGHT MODE */
+      body.light & {
+        background-color: white;
+        box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+      }
+
+      /* DARK MODE */
+      body.dark & {
+        background-color: #111827;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
       }
 
       .student-image {
@@ -36,14 +58,22 @@
           height: 80px;
           border-radius: 50%;
           object-fit: cover;
-          margin-bottom: 10px;
+          margin-bottom: 12px;
         }
       }
 
       .message {
         font-size: 16px;
-        color: #333;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        line-height: 1.6;
+
+        body.light & {
+          color: #374151;
+        }
+
+        body.dark & {
+          color: #9ca3af;
+        }
       }
 
       .info {
@@ -53,14 +83,25 @@
       .name {
         font-size: 18px;
         font-weight: bold;
-        color: #8a4baf;
         margin-bottom: 5px;
+        color: #3b82f6;
       }
 
       .position {
         font-size: 14px;
-        color: #666;
+
+        body.light & {
+          color: #6b7280;
+        }
+
+        body.dark & {
+          color: #9ca3af;
+        }
       }
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-6px);
     }
   }
 }

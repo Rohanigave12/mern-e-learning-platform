@@ -1,15 +1,34 @@
 .profile {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-radius: 16px;
   width: 30%;
   margin: 185px auto;
+  transition: 0.3s ease;
 
   @media (max-width: 768px) {
-    padding: 10px;
-    width: 80%;
+    padding: 15px;
+    width: 85%;
     margin: 90px auto;
+  }
+
+  /* ================= LIGHT MODE ================= */
+  body.light & {
+    background-color: white;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
+    color: #111827;
+  }
+
+  /* ================= DARK MODE ================= */
+  body.dark & {
+    background-color: #111827;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    color: #f9fafb;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #3b82f6;
   }
 
   .profile-info {
@@ -17,11 +36,22 @@
     margin-top: 15px;
 
     p {
-      margin-bottom: 10px;
-      color: #333;
+      margin-bottom: 12px;
+      font-size: 15px;
+      transition: 0.3s ease;
+
+      /* LIGHT */
+      body.light & {
+        color: #374151;
+      }
+
+      /* DARK */
+      body.dark & {
+        color: #9ca3af;
+      }
 
       strong {
-        color: #8a4baf;
+        color: #3b82f6;
       }
     }
   }

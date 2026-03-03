@@ -1,5 +1,4 @@
-import React from "react";
-import ChatBox from "../../components/chat/ChatBox";
+
 import "./dashbord.css";
 import { CourseData } from "../../context/CourseContext";
 import CourseCard from "../../components/coursecard/CourseCard";
@@ -17,11 +16,6 @@ const Dashbord = () => {
         ) : (
           <p>No course Enrolled Yet</p>
         )}
-      </div>
-
-      {/* AI Chatbot Section */}
-      <div style={{ marginTop: "30px" }}>
-        <ChatBox />
       </div>
     </div>
   );

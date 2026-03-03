@@ -2,6 +2,17 @@
   padding: 80px 0;
   text-align: center;
   min-height: 55vh;
+  transition: 0.3s ease;
+
+  /* ================= LIGHT MODE ================= */
+  body.light & {
+    background: #f9fafb;
+  }
+
+  /* ================= DARK MODE ================= */
+  body.dark & {
+    background: #0b0f19;
+  }
 
   .about-content {
     max-width: 800px;
@@ -9,14 +20,24 @@
 
     h2 {
       font-size: 32px;
-      color: #8a4baf;
       margin-bottom: 20px;
+      color: #3b82f6;
     }
 
     p {
       font-size: 16px;
-      color: #333;
-      line-height: 1.6;
+      line-height: 1.7;
+      transition: 0.3s ease;
+
+      /* LIGHT */
+      body.light & {
+        color: #374151;
+      }
+
+      /* DARK */
+      body.dark & {
+        color: #9ca3af;
+      }
     }
   }
 }

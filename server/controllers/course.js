@@ -9,32 +9,36 @@ import { Progress } from "../models/Progress.js";
 
 export const getAllCourses = TryCatch(async (req, res) => {
   const courses = await Courses.find();
-  res.json({
-    courses,
-  });
+  res.json({ courses });
 });
 
 export const getSingleCourse = TryCatch(async (req, res) => {
   const course = await Courses.findById(req.params.id);
 
-  res.json({
-    course,
-  });
+  if (!course) {
+    return res.status(404).json({ message: "Course not found" });
+  }
+
+  res.json({ course });
 });
 
 export const fetchLectures = TryCatch(async (req, res) => {
   const lectures = await Lecture.find({ course: req.params.id });
-
   const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
 
   if (user.role === "admin") {
     return res.json({ lectures });
   }
 
-  if (!user.subscription.includes(req.params.id))
+  if (!user.subscription.includes(req.params.id)) {
     return res.status(400).json({
       message: "You have not subscribed to this course",
     });
+  }
 
   res.json({ lectures });
 });
@@ -42,39 +46,74 @@ export const fetchLectures = TryCatch(async (req, res) => {
 export const fetchLecture = TryCatch(async (req, res) => {
   const lecture = await Lecture.findById(req.params.id);
 
+  if (!lecture) {
+    return res.status(404).json({ message: "Lecture not found" });
+  }
+
   const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
 
   if (user.role === "admin") {
     return res.json({ lecture });
   }
 
-  if (!user.subscription.includes(lecture.course))
+  if (!user.subscription.includes(lecture.course.toString())) {
     return res.status(400).json({
       message: "You have not subscribed to this course",
     });
+  }
 
   res.json({ lecture });
 });
 
 export const getMyCourses = TryCatch(async (req, res) => {
-  const courses = await Courses.find({ _id: req.user.subscription });
-
-  res.json({
-    courses,
+  const courses = await Courses.find({
+    _id: { $in: req.user.subscription },
   });
+
+  res.json({ courses });
 });
+
+
+// ✅ UPDATED CHECKOUT FUNCTION (FREE + PAID SUPPORT)
 
 export const checkout = TryCatch(async (req, res) => {
   const user = await User.findById(req.user._id);
-
   const course = await Courses.findById(req.params.id);
 
-  if (user.subscription.includes(course._id)) {
+  if (!user || !course) {
+    return res.status(404).json({
+      message: "User or Course not found",
+    });
+  }
+
+  if (user.subscription.includes(course._id.toString())) {
     return res.status(400).json({
       message: "You already have this course",
     });
   }
 
+  // ✅ FREE COURSE HANDLING
+  if (course.price === 0) {
+    user.subscription.push(course._id);
+
+    await Progress.create({
+      course: course._id,
+      completedLectures: [],
+      user: req.user._id,
+    });
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Free Course Enrolled Successfully",
+    });
+  }
+
+  // ✅ PAID COURSE HANDLING
   const options = {
     amount: Number(course.price * 100),
     currency: "INR",
@@ -88,6 +127,9 @@ export const checkout = TryCatch(async (req, res) => {
   });
 });
 
+
+// ✅ PAYMENT VERIFICATION
+
 export const paymentVerification = TryCatch(async (req, res) => {
   const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
     req.body;
@@ -95,41 +137,46 @@ export const paymentVerification = TryCatch(async (req, res) => {
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
   const expectedSignature = crypto
-    .createHmac("sha256", process.env.Razorpay_Secret)
+    .createHmac("sha256", process.env.RAZORPAY_SECRET)
     .update(body)
     .digest("hex");
 
   const isAuthentic = expectedSignature === razorpay_signature;
 
-  if (isAuthentic) {
-    await Payment.create({
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-    });
-
-    const user = await User.findById(req.user._id);
-
-    const course = await Courses.findById(req.params.id);
-
-    user.subscription.push(course._id);
-
-    await Progress.create({
-      course: course._id,
-      completedLectures: [],
-      user: req.user._id,
-    });
-
-    await user.save();
-
-    res.status(200).json({
-      message: "Course Purchased Successfully",
-    });
-  } else {
+  if (!isAuthentic) {
     return res.status(400).json({
       message: "Payment Failed",
     });
   }
+
+  const user = await User.findById(req.user._id);
+  const course = await Courses.findById(req.params.id);
+
+  if (!user || !course) {
+    return res.status(404).json({
+      message: "User or Course not found",
+    });
+  }
+
+  await Payment.create({
+    razorpay_order_id,
+    razorpay_payment_id,
+    razorpay_signature,
+  });
+
+  user.subscription.push(course._id);
+
+  await Progress.create({
+    course: course._id,
+    completedLectures: [],
+    user: req.user._id,
+  });
+
+  await user.save();
+
+  res.status(200).json({
+    message: "Course Purchased Successfully",
+  });
 });
 
 export const addProgress = TryCatch(async (req, res) => {
@@ -138,36 +185,44 @@ export const addProgress = TryCatch(async (req, res) => {
     course: req.query.course,
   });
 
+  if (!progress) {
+    return res.status(404).json({ message: "Progress not found" });
+  }
+
   const { lectureId } = req.query;
 
   if (progress.completedLectures.includes(lectureId)) {
-    return res.json({
-      message: "Progress recorded",
-    });
+    return res.json({ message: "Progress recorded" });
   }
 
   progress.completedLectures.push(lectureId);
-
   await progress.save();
 
   res.status(201).json({
-    message: "new Progress added",
+    message: "New Progress added",
   });
 });
 
 export const getYourProgress = TryCatch(async (req, res) => {
-  const progress = await Progress.find({
+  const progress = await Progress.findOne({
     user: req.user._id,
     course: req.query.course,
   });
 
-  if (!progress) return res.status(404).json({ message: "null" });
+  if (!progress) {
+    return res.status(404).json({ message: "Progress not found" });
+  }
 
-  const allLectures = (await Lecture.find({ course: req.query.course })).length;
+  const allLectures = await Lecture.countDocuments({
+    course: req.query.course,
+  });
 
-  const completedLectures = progress[0].completedLectures.length;
+  const completedLectures = progress.completedLectures.length;
 
-  const courseProgressPercentage = (completedLectures * 100) / allLectures;
+  const courseProgressPercentage =
+    allLectures === 0
+      ? 0
+      : (completedLectures * 100) / allLectures;
 
   res.json({
     courseProgressPercentage,

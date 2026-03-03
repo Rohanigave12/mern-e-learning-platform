@@ -1,7 +1,23 @@
+/* ========================= */
+/* COURSES SECTION */
+/* ========================= */
+
 .courses-modern {
-  background: #f9fafb;
   padding: 80px 20px;
+  transition: 0.3s ease;
 }
+
+/* LIGHT MODE */
+body.light .courses-modern {
+  background: #f9fafb;
+}
+
+/* DARK MODE */
+body.dark .courses-modern {
+  background: #0b0f19;
+}
+
+/* ================= WRAPPER ================= */
 
 .courses-wrapper {
   max-width: 1200px;
@@ -12,18 +28,40 @@
   font-size: 36px;
   font-weight: 800;
   text-align: center;
+  transition: 0.3s ease;
+}
+
+/* LIGHT */
+body.light .courses-wrapper h2 {
   color: #111827;
 }
+
+/* DARK */
+body.dark .courses-wrapper h2 {
+  color: #f9fafb;
+}
+
+/* ================= SUBTITLE ================= */
 
 .subtitle {
   text-align: center;
   margin-top: 10px;
-  color: #6b7280;
   margin-bottom: 50px;
   font-size: 17px;
+  transition: 0.3s ease;
 }
 
-/* GRID */
+/* LIGHT */
+body.light .subtitle {
+  color: #6b7280;
+}
+
+/* DARK */
+body.dark .subtitle {
+  color: #9ca3af;
+}
+
+/* ================= GRID ================= */
 
 .course-grid {
   display: grid;
@@ -31,17 +69,27 @@
   gap: 30px;
 }
 
-/* Empty */
+/* ================= EMPTY STATE ================= */
 
 .empty-state {
   grid-column: 1/-1;
   text-align: center;
   font-size: 18px;
-  color: #9ca3af;
   padding: 40px;
+  transition: 0.3s ease;
 }
 
-/* Responsive */
+/* LIGHT */
+body.light .empty-state {
+  color: #9ca3af;
+}
+
+/* DARK */
+body.dark .empty-state {
+  color: #6b7280;
+}
+
+/* ================= RESPONSIVE ================= */
 
 @media (max-width: 700px) {
   .courses-wrapper h2 {

@@ -1,35 +1,68 @@
 .sidebar {
-  width: 200px;
+  width: 220px;
   height: 100%;
   left: 0;
-  color: white;
-  border-right: 1px solid gray;
+  transition: 0.3s ease;
+
+  /* ================= LIGHT MODE ================= */
+  body.light & {
+    background: #ffffff;
+    color: #111827;
+    border-right: 1px solid #e5e7eb;
+  }
+
+  /* ================= DARK MODE ================= */
+  body.dark & {
+    background: #0f172a;
+    color: #f9fafb;
+    border-right: 1px solid #1f2937;
+  }
 
   @media (max-width: 768px) {
-    width: 30px;
+    width: 60px;
   }
 
   ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 
     li {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       cursor: pointer;
-      padding: 12px;
+      padding: 14px;
+      border-radius: 10px;
+      transition: 0.3s ease;
 
       @media (max-width: 768px) {
-        padding: 7px;
+        padding: 10px;
       }
 
-      &:hover {
-        background-color: gray;
+      /* LIGHT HOVER */
+      body.light &:hover {
+        background-color: #f3f4f6;
+      }
+
+      /* DARK HOVER */
+      body.dark &:hover {
+        background-color: #1f2937;
       }
 
       a {
         display: flex;
+        align-items: center;
         text-decoration: none;
-        counter-reset: blueviolet;
+        transition: 0.3s ease;
+
+        /* LIGHT */
+        body.light & {
+          color: #374151;
+        }
+
+        /* DARK */
+        body.dark & {
+          color: #e5e7eb;
+        }
 
         span {
           margin-left: 15px;
@@ -43,8 +76,18 @@
   }
 }
 
+/* ================= DASHBOARD LAYOUT ================= */
+
 .dashboard-admin {
   display: flex;
   min-height: 80vh;
   margin-top: 20px;
+
+  body.dark & {
+    background: #0b0f19;
+  }
+
+  body.light & {
+    background: #f9fafb;
+  }
 }

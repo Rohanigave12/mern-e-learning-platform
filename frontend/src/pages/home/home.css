@@ -1,3 +1,7 @@
+/* ========================= */
+/* HOME SECTION */
+/* ========================= */
+
 .home-modern {
   min-height: 85vh;
   display: flex;
@@ -5,8 +9,20 @@
   justify-content: space-between;
   padding: 80px;
   gap: 60px;
+  transition: 0.3s ease;
+}
+
+/* LIGHT MODE */
+body.light .home-modern {
   background: #f9fafb;
 }
+
+/* DARK MODE */
+body.dark .home-modern {
+  background: #0b0f19;
+}
+
+/* ================= TEXT ================= */
 
 .home-text {
   max-width: 520px;
@@ -15,19 +31,35 @@
 .home-text h1 {
   font-size: 48px;
   font-weight: 800;
+}
+
+body.light .home-text h1 {
   color: #111827;
 }
 
+body.dark .home-text h1 {
+  color: #f9fafb;
+}
+
 .home-text span {
-  color: #2563eb;
+  color: #3b82f6;
 }
 
 .home-text p {
   font-size: 18px;
   margin-top: 18px;
-  color: #4b5563;
   line-height: 1.6;
 }
+
+body.light .home-text p {
+  color: #4b5563;
+}
+
+body.dark .home-text p {
+  color: #9ca3af;
+}
+
+/* ================= BUTTONS ================= */
 
 .home-buttons {
   margin-top: 35px;
@@ -36,7 +68,7 @@
 }
 
 .main-btn {
-  background: #2563eb;
+  background: #3b82f6;
   color: white;
   border: none;
   padding: 14px 32px;
@@ -52,14 +84,15 @@
 
 .outline-btn {
   background: transparent;
-  border: 2px solid #2563eb;
-  color: #2563eb;
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
   padding: 14px 32px;
   border-radius: 12px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
-/* Cards */
+/* ================= CARDS ================= */
 
 .home-cards {
   display: grid;
@@ -68,20 +101,32 @@
 }
 
 .info-card {
-  background: white;
   padding: 25px;
   border-radius: 18px;
-  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
   font-weight: 600;
   text-align: center;
   transition: 0.3s ease;
+}
+
+/* LIGHT */
+body.light .info-card {
+  background: white;
+  color: #111827;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+/* DARK */
+body.dark .info-card {
+  background: #111827;
+  color: #f9fafb;
+  box-shadow: 0 12px 25px rgba(0,0,0,0.6);
 }
 
 .info-card:hover {
   transform: translateY(-6px);
 }
 
-/* Responsive */
+/* ================= RESPONSIVE ================= */
 
 @media (max-width: 900px) {
   .home-modern {
